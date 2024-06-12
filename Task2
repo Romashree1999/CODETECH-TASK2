@@ -1,0 +1,81 @@
+package grade_tracker;
+
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+	public class Student extends Exception{
+
+		public Student(String errorMsg) {
+			super(errorMsg);
+			
+		}
+	    public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+
+	        try {
+		        System.out.print("Enter student name: ");
+		        String studentName = scanner.nextLine();
+		    
+		        HashMap<String, Double> grades = new HashMap<>();
+ 
+		        while (true) {
+		            System.out.print("Enter subject name (or 'done' to finish): ");
+		            String subject = scanner.nextLine();
+		            if (subject.equalsIgnoreCase("done")) {
+		                break;
+		            }
+
+		            System.out.print("Enter mark for " + subject + ": ");
+		            double grade = scanner.nextDouble();
+		            if(grade<0 || grade>100) {
+		            	Student student = new Student("Invalid Mark...");
+		            	throw student;
+		            }
+		            grades.put(subject, grade);
+		            scanner.nextLine(); 
+		        }
+		       
+		        double averageGrade = calculateAverageGrade(grades);
+		    
+		        System.out.println("\nStudent Name: " + studentName);
+		        System.out.println("Grades:");
+		        for (String subject : grades.keySet()) {
+		            System.out.println("  " + subject + ": " + grades.get(subject));
+		        }
+		       
+		        System.out.println("\nAverage Grade: " + averageGrade);
+		        System.out.println("Letter Grade: " + getLetterGrade(averageGrade));
+		        System.out.print("GPA: " +String.format("%.2f", calculateGPA(averageGrade)));
+	        }
+	        catch(Student student){ 
+	        	System.err.println(student.getMessage());
+	        }
+	    }  
+
+	    public static double calculateAverageGrade(HashMap<String, Double> grades) {
+	        double total = 0;
+	        for (double grade : grades.values()) {
+	            total += grade;
+	        }
+	        return total / grades.size();
+	    }
+	   
+	    public static String getLetterGrade(double averageGrade) {
+	        if (averageGrade >= 90) {
+	            return "A";
+	        } else if (averageGrade >= 80) {
+	            return "B";
+	        } else if (averageGrade >= 70) {
+	            return "C";
+	        } else if (averageGrade >= 60) {
+	            return "D";
+	        } else {
+	            return "F";
+	        }
+	    }
+
+	    public static double calculateGPA(double averageGrade) {
+	        return averageGrade / 10.0;
+	    }
+	}
