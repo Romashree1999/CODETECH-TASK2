@@ -39,11 +39,11 @@ import java.util.Scanner;
 		        double averageGrade = calculateAverageGrade(grades);
 		    
 		        System.out.println("\nStudent Name: " + studentName);
-		        System.out.println("Grades:");
 		        for (String subject : grades.keySet()) {
 		            System.out.println("  " + subject + ": " + grades.get(subject));
 		        }
-		       
+
+			System.out.println("Grades:");
 		        System.out.println("\nAverage Grade: " + averageGrade);
 		        System.out.println("Letter Grade: " + getLetterGrade(averageGrade));
 		        System.out.print("GPA: " +String.format("%.2f", calculateGPA(averageGrade)));
